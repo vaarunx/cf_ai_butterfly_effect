@@ -154,7 +154,9 @@ function TimelineBranch({ node, isRoot = false }) {
     if (y === 0) return "border-purple-500 text-purple-200 bg-purple-500/10";
     if (y === 1) return "border-blue-500 text-blue-200 bg-blue-500/10";
     if (y === 10) return "border-cyan-500 text-cyan-200 bg-cyan-500/10";
-    return "border-emerald-500 text-emerald-200 bg-emerald-500/10";
+    if (y === 50) return "border-amber-500 text-amber-200 bg-amber-500/10";
+    if (y === 100) return "border-emerald-500 text-emerald-200 bg-emerald-500/10";
+    return "border-rose-500 text-rose-200 bg-rose-500/10";
   };
 
   return (

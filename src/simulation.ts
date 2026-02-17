@@ -87,17 +87,48 @@ export class SimulationWorkflow extends WorkflowEntrypoint<Env, Params> {
           });
     });
 
-    // Step 3: Year 100
+    // Step 3: Year 50
+    const year50 = await step.do("simulate-year-50", async () => {
+      const response = await this.env.AI.run("@cf/meta/llama-3.3-70b-instruct-fp8-fast", {
+        messages: [
+          {
+            role: "system",
+            content: "You are an alternate history simulator. Describe the world 50 years later based on the previous event. Keep it under 100 words.",
+          },
+          {
+            role: "user",
+            content: `Previous event (Year 10): ${year10}`,
+          },
+        ],
+      });
+      return response.response;
+    });
+
+     await step.do("save-year-50", async () => {
+         await stub.fetch("http://do/add", {
+            method: "POST",
+            body: JSON.stringify({
+              id: crypto.randomUUID(),
+              parentId: null,
+              year: 50,
+              description: year50,
+              createdBy: "AI",
+              createdAt: new Date().toISOString(),
+            }),
+          });
+    });
+
+    // Step 4: Year 100
     const year100 = await step.do("simulate-year-100", async () => {
       const response = await this.env.AI.run("@cf/meta/llama-3.3-70b-instruct-fp8-fast", {
         messages: [
           {
             role: "system",
-            content: "Describe the world 100 years later based on the previous event. Keep it under 100 words.",
+            content: "You are an alternate history simulator. Describe the world 100 years later based on the previous event. Keep it under 100 words.",
           },
           {
             role: "user",
-            content: `Previous event (Year 10): ${year10}`,
+            content: `Previous event (Year 50): ${year50}`,
           },
         ],
       });
@@ -118,7 +149,38 @@ export class SimulationWorkflow extends WorkflowEntrypoint<Env, Params> {
           });
     });
 
-    return { year1, year10, year100 };
+    // Step 5: Year 250
+    const year250 = await step.do("simulate-year-250", async () => {
+      const response = await this.env.AI.run("@cf/meta/llama-3.3-70b-instruct-fp8-fast", {
+        messages: [
+          {
+            role: "system",
+            content: "You are an alternate history simulator. Describe the world 250 years later based on the previous event. Keep it under 100 words.",
+          },
+          {
+            role: "user",
+            content: `Previous event (Year 100): ${year100}`,
+          },
+        ],
+      });
+      return response.response;
+    });
+
+     await step.do("save-year-250", async () => {
+         await stub.fetch("http://do/add", {
+            method: "POST",
+            body: JSON.stringify({
+              id: crypto.randomUUID(),
+              parentId: null,
+              year: 250,
+              description: year250,
+              createdBy: "AI",
+              createdAt: new Date().toISOString(),
+            }),
+          });
+    });
+
+    return { year1, year10, year50, year100, year250 };
   }
 }
 
