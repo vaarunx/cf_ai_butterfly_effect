@@ -26,4 +26,4 @@ For each step, save the result to the Durable Object so the frontend can update 
 -   Poll the backend every few seconds to see if new simulation steps have finished."
 
 ## 4. Refinements
-"The jump from Year 10 to Year 100 is too jarring. Let's smooth it out by adding intermediate steps for Year 50 and Year 250. Also, color-code the cards so the user can visually distinguish the depth of the simulation (e.g., Purple for Divergence, Green for Year 100, Red for Year 250)."
+"The jump from Year 10 to Year 100 is too fast. Let's smooth it out by adding intermediate steps for Year 50 and Year 250. Also, color-code the cards so the user can visually distinguish the depth of the simulation (e.g., Purple for Divergence, Green for Year 100, Red for Year 250)."
