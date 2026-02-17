@@ -1,24 +1,29 @@
-# AI Prompts
+# AI Prompts & Development Process
 
-This file documents the prompts used in the `cf_ai_butterfly_effect` application.
+This project was built using a series of iterative prompts to design the architecture, implement the Cloudflare-specific components, and refine the frontend UI. Below are the key prompts used to guide the AI assistant.
 
-## Simulation Workflow
+## 1. Architecture & Core Logic
+"I want to build a 'Butterfly Effect' simulator on Cloudflare. The goal is to let users change one historical event and see the consequences ripple through time.
+-   **Backend**: Use Cloudflare Workers.
+-   **AI**: Use Llama 3.3 for generating the alternate history scenarios.
+-   **State**: We need a way to chain simulations (Year 1 -> Year 10 -> Year 100) automatically without the user waiting. What's the best way to do this? Workflows?
+-   **Persistence**: All timelines should be saved permanently so users can see a 'multiverse' of everyone's changes. Use Durable Objects for this."
 
-### Step 1: Immediate Consequences (1 Year)
-> "You are a historian specializing in alternate history.
-> The following change occurred in history: {user_input}.
-> Describe the immediate consequences 1 year after this change.
-> Focus on societal panic, confusion, or immediate political shifts.
-> Keep it under 100 words."
+## 2. The Simulation Chain (Workflow)
+"Create a Cloudflare Workflow that takes a user's input (the point of divergence) and runs a multi-step simulation.
+1.  **Step 1**: Generate the immediate aftermath (1 Year Later).
+2.  **Step 2**: Take the output of Year 1 and generate Year 10.
+3.  **Step 3**: Take Year 10 and generate Year 50.
+4.  **Step 4**: Take Year 50 and generate Year 100.
+5.  **Step 5**: Finally, generate the distant future (Year 250).
+For each step, save the result to the Durable Object so the frontend can update in real-time."
 
-### Step 2: Short-term Consequences (10 Years)
-> "Based on the previous event: {previous_result}.
-> Describe the state of the world 10 years later.
-> Focus on technological adaptation and cultural shifts.
-> Keep it under 100 words."
+## 3. Frontend & Visualization
+"Build a React frontend using Vite and Tailwind CSS.
+-   It should look like a sci-fi 'Time Variance Authority' interface.
+-   Use a dark theme with purple/neon accents.
+-   Display the timelines as a branching tree or a list of 'detected timelines'.
+-   Poll the backend every few seconds to see if new simulation steps have finished."
 
-### Step 3: Long-term Consequences (100 Years)
-> "Based on the previous event: {previous_result}.
-> Describe the state of the world 100 years later.
-> Focus on radical long-term changes to civilization.
-> Keep it under 100 words."
+## 4. Refinements
+"The jump from Year 10 to Year 100 is too jarring. Let's smooth it out by adding intermediate steps for Year 50 and Year 250. Also, color-code the cards so the user can visually distinguish the depth of the simulation (e.g., Purple for Divergence, Green for Year 100, Red for Year 250)."
