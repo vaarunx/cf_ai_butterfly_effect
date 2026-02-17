@@ -2,8 +2,7 @@
 
 > A "What If" history simulator powered by Cloudflare Workers AI.
 
-![Screenshot Placeholder](screenshots/demo.png)
-*(Add a screenshot of the timeline UI here)*
+![Screenshot Placeholder](screenshots/demo.jpg)
 
 ## Project Overview
 
